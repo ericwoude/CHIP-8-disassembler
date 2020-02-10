@@ -9,7 +9,7 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
     uint8_t* op = &buffer[pc];
     uint8_t nibble = op[0] >> 4;
 
-    printf("%04X %02X %02X  ", pc, op[0], op[1]);
+    printf("%04X %02X %02X   ", pc, op[0], op[1]);
 
     /*
      * The CHIP-8 has 35 different opcodes of 2 bytes in length.
@@ -28,36 +28,36 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
             switch(op[1])
             {
                 case 0xe0:
-                    printf("%-10s\n", "CLS");
+                    printf("%s\n", "CLS");
                     break;
                 case 0xee:
-                    printf("%-10s\n", "RET");
+                    printf("%s\n", "RET");
                     break;
                 default:
-                    printf("%-10s $%01X%02X\n", "CALLR", op[0] & 0xf, op[1]);
+                    printf("%-4s %01X%02X\n", "SYS", op[0] & 0xf, op[1]);
             }
             break;
         }
         case 0x01:
-            printf("%-10s $%01X%02X\n", "JUMP", op[0] & 0xf, op[1]);
+            printf("%-4s %01X%02X\n", "JP", op[0] & 0xf, op[1]);
             break;
         case 0x02:
-            printf("%-10s $%01X%02X\n", "CALL", op[0] & 0xf, op[1]);
+            printf("%-4s %01X%02X\n", "CALL", op[0] & 0xf, op[1]);
             break;
         case 0x03:
-            printf("%-10s V%01X, #$%02X\n", "SKIP.EQ", op[0] & 0xf, op[1]);
+            printf("%-4s V%-2X #%02X\n", "SE", op[0] & 0xf, op[1]);
             break;
         case 0x04:
-            printf("%-10s V%01X, #$%02X\n", "SKIP.NE", op[0] & 0xf, op[1]);
+            printf("%-4s V%-2X #%02X\n", "SNE", op[0] & 0xf, op[1]);
             break;
         case 0x05:
-            printf("%-10s V%01X, V%01X\n", "SKIP.EQ", op[0] & 0xf, op[1]);
+            printf("%-4s V%-2X V%01X\n", "SE", op[0] & 0xf, op[1]);
             break;
         case 0x06:
-            printf("%-10s V%01X, #$%02X\n", "MVI", op[0] & 0x0f, op[1]);
+            printf("%-4s V%-2X #%02X\n", "LD", op[0] & 0x0f, op[1]);
             break;
         case 0x07:
-            printf("%-10s V%01X, #$%02X\n", "ADI", op[0] & 0x0f, op[1]);
+            printf("%-4s V%-2X #%02X\n", "ADD", op[0] & 0x0f, op[1]);
             break;
         case 0x08:
         {
@@ -65,64 +65,64 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
             switch (operation)
             {
                 case 0x0:
-                    printf("%-10s V%01X, V%01X\n", "MOV", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "LD", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0x1:
-                    printf("%-10s V%01X, V%01X\n", "OR", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "OR", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0x2:
-                    printf("%-10s V%01X, V%01X\n", "AND", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "AND", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0x3:
-                    printf("%-10s V%01X, V%01X\n", "XOR", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "XOR", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0x4:
-                    printf("%-10s V%01X, V%01X\n", "ADD", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "ADD", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0x5:
-                    printf("%-10s V%01X, V%01X\n", "SUB", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "SUB", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0x6:
-                    printf("%-10s V%01X, V%01X\n", "SHR", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "SHR", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0x7:
-                    printf("%-10s V%01X, V%01X, V%01X\n", "SUB", op[0] & 0x0f, op[1] >> 4, op[0] & 0x0f);
+                    printf("%-4s V%-2X V%01X\n", "SUBN", op[0] & 0x0f, op[1] >> 4);
                     break;
                 case 0xe:
-                    printf("%-10s V%01X, V%01X\n", "SHL", op[0] & 0x0f, op[1] >> 4);
+                    printf("%-4s V%-2X V%01X\n", "SHL", op[0] & 0x0f, op[1] >> 4);
                     break;
                 default:
-                    printf("%-10s\n", "UNKNOWN 8");
+                    printf("%-4s %-2X\n", "UNKN", 0x8);
             }
             break;
         }
         case 0x9:
-            printf("%-10s V%01X, V%01X\n", "SKIP.NE", op[0] & 0x0f, op[1] >> 4);
+            printf("%-4s V%-2X V%01X\n", "SNE", op[0] & 0x0f, op[1] >> 4);
             break;
         case 0xa:
-            printf("%-10s I,  #$%01X%02X\n", "MVI", op[0] & 0xf, op[1]);
+            printf("%-4s I   %01X%02X\n", "LD", op[0] & 0xf, op[1]);
             break;
         case 0xb:
-            printf("%-10s $%01X%02X(V0)\n", "JUMP", op[0] & 0xf, op[1]);
+            printf("%-4s V0  %01X%02X\n", "JP", op[0] & 0xf, op[1]);
             break;
         case 0xc:
-            printf("%-10s V%01X, #$%02X\n", "RNDMSK", op[0] & 0xf, op[1]);
+            printf("%-4s V%-2X #%02X\n", "RND", op[0] & 0xf, op[1]);
             break;
         case 0xd:
-            printf("%-10s V%01X, V%01X, #$%01X\n", "RNDMSK", op[0] & 0xf, op[1] >> 4, op[1] & 0x0f);
+            printf("%-4s V%-2X V%-2X #%02X\n", "DRW", op[0] & 0xf, op[1] >> 4, op[1] & 0x0f);
             break;
         case 0xe:
         {
             switch(op[1])
             {
                 case 0x9e:
-                    printf("%-10s V%01X\n", "SKIPKEY.Y", op[0] & 0xf);
+                    printf("%-4s V%01X\n", "SKP", op[0] & 0xf);
                     break;
                 case 0xa1:
-                    printf("%-10s V%01X\n", "SKIPKEY.N", op[0] & 0xf);
+                    printf("%-4s V%01X\n", "SKNP", op[0] & 0xf);
                     break;
                 default:
-                    printf("%-10s\n", "UNKNOWN E");
+                    printf("%-4s %-2X\n", "UNKN", 0xe);
             }
             break;
         }
@@ -131,39 +131,40 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
             switch(op[1])
             {
                 case 0x07:
-                    printf("%-10s V%01X, DELAY\n", "MOV", op[0] & 0xf);
+                    printf("%-4s V%-2X DT\n", "LD", op[0] & 0xf);
                     break;
                 case 0x0a:
-                    printf("%-10s V%01X\n", "KEY", op[0] & 0xf);
+                    printf("%-4s V%-2X K\n", "LD", op[0] & 0xf);
                     break;
                 case 0x15:
-                    printf("%-10s DELAY, V%01X\n", "MOV", op[0] & 0xf);
+                    printf("%-4s %-3s V%01X\n", "LD", "DT", op[0] & 0xf);
                     break;
                 case 0x18:
-                    printf("%-10s SOUND, V%01X\n", "MOV", op[0] & 0xf);
+                    printf("%-4s %-3s V%01X\n", "LD", "ST", op[0] & 0xf);
                     break;
                 case 0x1e:
-                    printf("%-10s I, V%01X\n", "ADI", op[0] & 0xf);
+                    printf("%-4s %-3s V%01X\n", "ADD", "I", op[0] & 0xf);
                     break;
                 case 0x29:
-                    printf("%-10s I, V%01X\n", "SPRITECHAR", op[0] & 0xf);
+                    printf("%-4s %-3s V%01X\n", "LD", "F", op[0] & 0xf);
                     break;
                 case 0x33:
-                    printf("%-10s (I), V%01X\n", "MOVBCD", op[0] & 0xf);
+                    printf("%-4s %-3s V%01X\n", "LD", "B", op[0] & 0xf);
                     break;
                 case 0x55:
-                    printf("%-10s (I), V0-V%01X\n", "MOVM", op[0] & 0xf);
+                    printf("%-4s %-3s V%01X\n", "LD", "[I]", op[0] & 0xf);
                     break;
                 case 0x65:
-                    printf("%-10s V0-V%01X, (I)\n", "MOVM", op[0] & 0xf);
+                    printf("%-4s V%-2X [I]\n", "LD", op[0] & 0xf);
                     break;
                 default:
-                    printf("%-10s\n", "UNKNOWN F");
+                    printf("%-4s %-2X\n", "UNKN", 0xf);
+
             }
             break;
         }
         default:
-            printf("%-10s\n", "UNKNOWN");
+            printf("%-4s\n", "UNKN");
     }
 }
 
