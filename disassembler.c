@@ -128,8 +128,7 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
         }
         case 0xf:
         {
-            uint8_t instruction = op[1];
-            switch(instruction)
+            switch(op[1])
             {
 				case 0x07:
                     printf("%-10s V%01X, DELAY\n", "MOV", op[0] & 0xf);
