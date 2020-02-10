@@ -34,7 +34,7 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
                     printf("%-10s\n", "RET");
                     break;
                 default:
-                    printf("%-10s\n", "UNKNOWN 0");
+                    printf("%-10s $%01X%02X\n", "CALLR", op[0] & 0xf, op[1]);
             }
             break;
         }
