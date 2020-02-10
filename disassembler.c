@@ -113,8 +113,7 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
             break;
         case 0xe:
         {
-            uint8_t instruction = op[1] & 0x0f;
-            switch(instruction)
+            switch(op[1])
             {
                 case 0x9e:
                     printf("%-10s V%01X\n", "SKIPKEY.Y", op[0] & 0xf);
@@ -135,9 +134,6 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
 				case 0x07:
                     printf("%-10s V%01X, DELAY\n", "MOV", op[0] & 0xf);
                     break;
-				case 0x1e:
-                    printf("%-10s I, V%01X\n", "ADI", op[0] & 0xf);
-                    break;
 				case 0x0a:
                     printf("%-10s V%01X\n", "KEY", op[0] & 0xf);
                     break;
@@ -146,6 +142,9 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
                     break;
 				case 0x18:
                     printf("%-10s SOUND, V%01X\n", "MOV", op[0] & 0xf);
+                    break;
+				case 0x1e:
+                    printf("%-10s I, V%01X\n", "ADI", op[0] & 0xf);
                     break;
 				case 0x29:
                     printf("%-10s I, V%01X\n", "SPRITECHAR", op[0] & 0xf);
