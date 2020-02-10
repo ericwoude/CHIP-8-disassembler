@@ -12,7 +12,7 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
     printf("%04X %02X %02X  ", pc, op[0], op[1]);
 
     /*
-     * The CHIP-8 has 35 different opops of 2 bytes in length.
+     * The CHIP-8 has 35 different opcodes of 2 bytes in length.
      * These bytes are stored in op[0] and op[1] respectively.
      *
      * For most opcodes, the instruction can be deduced from the
