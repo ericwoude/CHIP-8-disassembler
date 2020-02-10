@@ -5,10 +5,10 @@
 To install, simply clone this project and run `make`. This will output the program called _disassembler_.
 
 ## Usage
-You can use this tool using the following command: `./disassembler file`, where file is the path to your CHIP-8 program.
+You can use this tool using the following command: `./disassembler file`, where file is the path to your CHIP-8 program. You can find a list of CHIP-8 programs at [Zophar's domain](https://www.zophar.net/pdroms/chip8.html).
 
 ## Status
-the project is: _finished_. I have no further plans to implement instructions for the Super Chip-48.
+The project is _finished_. I have no further plans to implement instructions for the Super Chip-48.
 
 ## Inspiration
 This tool is highly inspired by the following sources
