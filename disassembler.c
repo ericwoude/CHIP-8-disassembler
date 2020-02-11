@@ -193,7 +193,7 @@ int main(int argc, char** argv)
 {
     if (argv[1] == NULL)
     {
-        printf("Usage: ./disassembleCHIP8 file\n");
+        printf("Usage: ./disassembler file\n");
         exit(EXIT_FAILURE);
     }
 
