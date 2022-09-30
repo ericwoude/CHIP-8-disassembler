@@ -1,3 +1,7 @@
+[![Main Status](https://img.shields.io/github/workflow/status/ericwoude/CHIP-8-disassembler/main?style=social)](https://github.com/ericwoude/CHIP-8-disassembler/actions/workflows/main.yml)
+[![Latest Release](https://img.shields.io/github/v/release/ericwoude/CHIP-8-disassembler?style=social)](https://github.com/ericwoude/CHIP-8-disassembler/releases)
+[![License](https://img.shields.io/github/license/ericwoude/CHIP-8-disassembler?style=social)](https://github.com/ericwoude/CHIP-8-disassembler/blob/main/LICENSE)
+
 # CHIP-8 disassembler
 > This tool aims to disassemble CHIP-8 programs into pseudo-assembly. It can be useful for debugging when writing a CHIP-8 emulator or for exploring CHIP-8 programs.
 

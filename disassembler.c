@@ -1,8 +1,32 @@
+/*
+ * This file is part of the CHIP-8 disassembler.
+ * (https://github.com/ericwoude/CHIP-8-disassembler)
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright © 2022 Eric van der Woude
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the “Software”), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 
-#define MEM_OFFSET 0x200 // Programs are always loaded at 0x200.
+#define MEM_OFFSET 0x200  // Programs are always loaded at 0x200.
 
 void disassembleCHIP8(uint8_t* buffer, int pc)
 {
@@ -21,11 +45,11 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
      * to the Wikipedia page on CHIP-8.
      */
 
-    switch(nibble)
+    switch (nibble)
     {
         case 0x0:
         {
-            switch(op[1])
+            switch (op[1])
             {
                 case 0xe0:
                     printf("%s\n", "CLS");
@@ -113,7 +137,7 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
             break;
         case 0xe:
         {
-            switch(op[1])
+            switch (op[1])
             {
                 case 0x9e:
                     printf("%-4s V%01X\n", "SKP", op[0] & 0xf);
@@ -128,7 +152,7 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
         }
         case 0xf:
         {
-            switch(op[1])
+            switch (op[1])
             {
                 case 0x07:
                     printf("%-4s V%-2X DT\n", "LD", op[0] & 0xf);
@@ -159,7 +183,6 @@ void disassembleCHIP8(uint8_t* buffer, int pc)
                     break;
                 default:
                     printf("%-4s %-2X\n", "UNKN", 0xf);
-
             }
             break;
         }
@@ -183,8 +206,13 @@ uint8_t* load_file(char* file_location, int* file_size)
     rewind(fp);
 
     uint8_t* buffer = malloc(*file_size + MEM_OFFSET);
-    fread(buffer + MEM_OFFSET, *file_size, 1, fp);
+    size_t ret = fread(buffer + MEM_OFFSET, *file_size, 1, fp);
     fclose(fp);
+    if (ret <= 0)
+    {
+        printf("Error reading file: %s\n", file_location);
+        exit(EXIT_FAILURE);
+    }
 
     return buffer;
 }
